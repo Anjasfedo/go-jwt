@@ -1,10 +1,13 @@
 package main
 
 import (
+	"github.com/Anjasfedo/go-react-jwt/database"
 	"github.com/gofiber/fiber/v3"
 )
 
 func main() {
+	database.Connect()
+	
 	// Initialize a new Fiber app
 	app := fiber.New()
 

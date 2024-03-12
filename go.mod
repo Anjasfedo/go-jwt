@@ -1,4 +1,4 @@
-module go-react-jwt
+module github.com/Anjasfedo/go-react-jwt
 
 go 1.21.5
 
