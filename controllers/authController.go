@@ -5,6 +5,11 @@ import (
 )
 
 func Register(c *fiber.Ctx) error {
-	c.BodyParser()
-	return c.SendString("Hello, World 👋!")
+	var data map[string]string
+
+	if err := c.BodyParser(&data); err != nil {
+		return err
+	}
+
+	return c.JSON(data)
 }
