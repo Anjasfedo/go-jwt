@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/Anjasfedo/go-react-jwt/database"
 	"github.com/Anjasfedo/go-react-jwt/routes"
-	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
