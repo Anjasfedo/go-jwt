@@ -11,6 +11,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+const SECRET_KEY = "anjasGantenk"
+
 func Register(c *fiber.Ctx) error {
 	var data map[string]string
 
@@ -62,5 +64,13 @@ func Login(c *fiber.Ctx) error {
 		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), //1 day
 	})
 
-	return c.JSON(user)
+	token, err := claims.SignedString([]byte(SECRET_KEY))
+	if err != nil {
+		c.Status(fiber.StatusInternalServerError)
+		return c.JSON(fiber.Map{
+			"message": "Couldn't login",
+		})
+	}
+
+	return c.JSON(token)
 }
