@@ -1,8 +1,12 @@
 package controllers
 
 import (
+	"strconv"
+	"time"
+
 	"github.com/Anjasfedo/go-react-jwt/database"
 	"github.com/Anjasfedo/go-react-jwt/models"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -52,6 +56,11 @@ func Login(c *fiber.Ctx) error {
 			"message": "Incorrect Password",
 		})
 	}
+
+	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
+		Issuer:    strconv.Itoa(int(user.Id)),
+		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), //1 day
+	})
 
 	return c.JSON(user)
 }
