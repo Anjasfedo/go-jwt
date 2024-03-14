@@ -82,7 +82,7 @@ func Login(c *fiber.Ctx) error {
 	c.Cookie(&cookie)
 
 	return c.JSON(fiber.Map{
-		"message": "Success",
+		"message": "Login success",
 	})
 }
 
@@ -106,4 +106,19 @@ func User(c *fiber.Ctx) error {
 	database.DB.Where("id = ?", claims.Issuer).First(&User)
 
 	return c.JSON(User)
+}
+
+func Logout(c *fiber.Ctx) error {
+	cookie := fiber.Cookie{
+		Name: "jwt",
+		Value: "",
+		Expires: time.Now().Add(-time.Hour),
+		HTTPOnly: true,
+	}
+
+	c.Cookie(&cookie)
+
+	return c.JSON(fiber.Map{
+		"message": "Logout success",
+	})
 }
